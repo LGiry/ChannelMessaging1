@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class WsRequest extends AsyncTask<String, Integer, String>{
     private String url;
+    private int id;
     private List<NameValuePair> parametres;
     private ArrayList<OnWsRequestListener> listeners = new ArrayList<>();
     private Exception except = null;
@@ -28,6 +29,12 @@ public class WsRequest extends AsyncTask<String, Integer, String>{
     public WsRequest(String url, List<NameValuePair> parametres) {
         this.url = url;
         this.parametres = parametres;
+    }
+
+    public WsRequest(String url, List<NameValuePair> parametres, int anId) {
+        this.url = url;
+        this.parametres = parametres;
+        this.id = anId;
     }
 
     public void setOnWsRequestListener(OnWsRequestListener listener){

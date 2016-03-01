@@ -1,5 +1,6 @@
 package laurie.giry.channelmessaging;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,7 +33,7 @@ public class ChannelListActivity extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_list);
 
-        lvMyListView = (ListView)findViewById(R.id.chanelList);
+        lvMyListView = (ListView)findViewById(R.id.channelList);
         lvMyListView.setOnItemClickListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,6 +63,7 @@ public class ChannelListActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent myIntent = new Intent(getApplicationContext(),ChannelActivity.class);
+        myIntent.putExtra("ChannelId", id);
         startActivity(myIntent);
     }
 
@@ -69,8 +72,9 @@ public class ChannelListActivity extends AppCompatActivity implements AdapterVie
         Gson gson = new Gson();
 
         ChannelResponse channelRep = gson.fromJson(result, ChannelResponse.class);
-        Channel[] channels = channelRep.getResponse();
+        List<Channel> channels = channelRep.getResponse();
 
+        lvMyListView.setAdapter(new ChannelAdaptater(channels, this));
     }
 
     @Override
