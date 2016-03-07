@@ -1,4 +1,4 @@
-package laurie.giry.channelmessaging;
+package laurie.giry.channelmessaging.Fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +19,18 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChannelListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, OnWsRequestListener {
+import laurie.giry.channelmessaging.Channel;
+import laurie.giry.channelmessaging.ChannelActivity;
+import laurie.giry.channelmessaging.ChannelAdaptater;
+import laurie.giry.channelmessaging.ChannelResponse;
+import laurie.giry.channelmessaging.OnWsRequestListener;
+import laurie.giry.channelmessaging.R;
+import laurie.giry.channelmessaging.WsRequest;
+
+/**
+ * Created by Wibou on 07/03/2016.
+ */
+public class ChannelListFragment extends AppCompatActivity implements AdapterView.OnItemClickListener, OnWsRequestListener {
     private static final int REQUEST_GET_CHANNELS = 0;
     private ListView lvMyListView;
     private String[] listItems;
@@ -74,7 +85,5 @@ public class ChannelListActivity extends AppCompatActivity implements AdapterVie
     }
 
     @Override
-    public void OnError(int mRequestCode) {
-
-    }
+    public void OnError(int mRequestCode) {}
 }

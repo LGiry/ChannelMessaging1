@@ -21,20 +21,15 @@ import java.util.List;
  */
 public class WsRequest extends AsyncTask<String, Integer, String>{
     private String url;
-    private int id;
     private List<NameValuePair> parametres;
     private ArrayList<OnWsRequestListener> listeners = new ArrayList<>();
     private Exception except = null;
+    private int mRequestCode;
 
-    public WsRequest(String url, List<NameValuePair> parametres) {
+    public WsRequest(int mRequestCode, String url, List<NameValuePair> parametres) {
         this.url = url;
         this.parametres = parametres;
-    }
-
-    public WsRequest(String url, List<NameValuePair> parametres, int anId) {
-        this.url = url;
-        this.parametres = parametres;
-        this.id = anId;
+        this.mRequestCode = mRequestCode;
     }
 
     public void setOnWsRequestListener(OnWsRequestListener listener){
@@ -72,10 +67,10 @@ public class WsRequest extends AsyncTask<String, Integer, String>{
         for (OnWsRequestListener listener : listeners)
         {
             if(except == null) {
-                listener.OnSuccess(s);
+                listener.OnSuccess(mRequestCode, s);
             }
             else {
-                listener.OnError();
+                listener.OnError(mRequestCode);
             }
         }
     }

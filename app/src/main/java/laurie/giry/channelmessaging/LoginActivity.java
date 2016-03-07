@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -26,6 +25,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, OnWsRequestListener {
 
+    private static final int REQUEST_LOGIN = 0;
     private Button btnValider;
     private EditText txtId;
     private EditText txtMDP;
@@ -84,13 +84,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         values.add(new BasicNameValuePair("username", id));
         values.add(new BasicNameValuePair("password", mdp));
 
-        WsRequest connectionRqt = new WsRequest("http://raphaelbischof.fr/messaging/?function=connect", values);
+        WsRequest connectionRqt = new WsRequest(REQUEST_LOGIN, "http://raphaelbischof.fr/messaging/?function=connect", values);
         connectionRqt.setOnWsRequestListener(this);
         connectionRqt.execute();
     }
 
     @Override
-    public void OnSuccess(String result) {
+    public void OnSuccess(int mRequestCode, String result) {
         Gson gson = new Gson();
         Response response = gson.fromJson(result, Response.class);
 
@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void OnError() {
+    public void OnError(int mRequestCode) {
         Context context = getApplicationContext();
         CharSequence text = "No pain, No glory ! ";
         int duration = Toast.LENGTH_SHORT;
