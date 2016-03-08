@@ -1,5 +1,6 @@
 package laurie.giry.channelmessaging;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,62 +20,32 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChannelListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, OnWsRequestListener {
-    private static final int REQUEST_GET_CHANNELS = 0;
-    private ListView lvMyListView;
-    private String[] listItems;
+import laurie.giry.channelmessaging.Fragment.ChannelListFragment;
+import laurie.giry.channelmessaging.Fragment.MessageFragment;
+
+public class ChannelListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_list);
-
-        lvMyListView = (ListView)findViewById(R.id.channelList);
-        lvMyListView.setOnItemClickListener(this);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        SharedPreferences settings = getSharedPreferences("PrefAccessToken", 0);
-        String accessToken = settings.getString("AccessToken", "");
-
-        List<NameValuePair> values = new ArrayList<NameValuePair>(1);
-        if(accessToken.length() != 0){
-            values.add(new BasicNameValuePair("accesstoken", accessToken));
-        }
-        WsRequest connectionRqt = new WsRequest(REQUEST_GET_CHANNELS, "http://www.raphaelbischof.fr/messaging/?function=getchannels", values);
-        connectionRqt.setOnWsRequestListener(this);
-        connectionRqt.execute();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent myIntent = new Intent(getApplicationContext(),ChannelActivity.class);
-        myIntent.putExtra("ChannelId", id);
-        startActivity(myIntent);
-    }
 
-    @Override
-    public void OnSuccess(int mRequestCode, String result) {
-        Gson gson = new Gson();
+        ChannelListFragment fragA = (ChannelListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentA_channelList);
+        MessageFragment fragB = (MessageFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentB_channel);
+        if(fragB == null || !fragB.isInLayout()){
+            Intent myIntent = new Intent(getApplicationContext(),ChannelActivity.class);
+            myIntent.putExtra("ChannelId", id);
+            startActivity(myIntent);
+        } else {
+            //fragB.fillTextView(fragA.listItems[position]);
 
-        ChannelResponse channelRep = gson.fromJson(result, ChannelResponse.class);
-        List<Channel> channels = channelRep.getResponse();
 
-        lvMyListView.setAdapter(new ChannelAdaptater(channels, this));
-    }
-
-    @Override
-    public void OnError(int mRequestCode) {
-
+        }
     }
 }
