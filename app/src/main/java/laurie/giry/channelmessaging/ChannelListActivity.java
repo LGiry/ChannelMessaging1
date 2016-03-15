@@ -43,9 +43,7 @@ public class ChannelListActivity extends AppCompatActivity implements AdapterVie
             myIntent.putExtra("ChannelId", id);
             startActivity(myIntent);
         } else {
-            //fragB.fillTextView(fragA.listItems[position]);
-
-
+            fragB.OnChannelClick(id);
         }
     }
 }

@@ -32,6 +32,7 @@
             android:layout_height="?android:listPreferredItemHeight"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/ivPhoto" />
+            android:id="@+id/ivPhoto"
+            android:paddingRight="7dp"/>
 
     </RelativeLayout>

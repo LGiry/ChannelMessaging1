@@ -41,15 +41,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtMDP = (EditText) findViewById(R.id.editTextMDP);
         txtId = (EditText) findViewById(R.id.editTextId);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         btnValider.setOnClickListener(this);
     }
 

@@ -5,9 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -22,6 +25,7 @@ import java.util.List;
 import laurie.giry.channelmessaging.Channel;
 import laurie.giry.channelmessaging.ChannelActivity;
 import laurie.giry.channelmessaging.ChannelAdaptater;
+import laurie.giry.channelmessaging.ChannelListActivity;
 import laurie.giry.channelmessaging.ChannelResponse;
 import laurie.giry.channelmessaging.OnWsRequestListener;
 import laurie.giry.channelmessaging.R;
@@ -30,32 +34,25 @@ import laurie.giry.channelmessaging.WsRequest;
 /**
  * Created by Wibou on 07/03/2016.
  */
-public class ChannelListFragment extends AppCompatActivity implements AdapterView.OnItemClickListener, OnWsRequestListener {
+public class ChannelListFragment extends Fragment implements OnWsRequestListener{
     private static final int REQUEST_GET_CHANNELS = 0;
     private ListView lvMyListView;
-    private String[] listItems;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_channel_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
 
-        lvMyListView = (ListView)findViewById(R.id.channelList);
-        lvMyListView.setOnItemClickListener(this);
+        View view = inflater.inflate(R.layout.fragment_channel_list,container);
+        lvMyListView = (ListView)view.findViewById(R.id.channelList);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        return view;
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        lvMyListView.setOnItemClickListener((ChannelListActivity) getActivity());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        SharedPreferences settings = getSharedPreferences("PrefAccessToken", 0);
+        SharedPreferences settings = getActivity().getSharedPreferences("PrefAccessToken", 0);
         String accessToken = settings.getString("AccessToken", "");
 
         List<NameValuePair> values = new ArrayList<NameValuePair>(1);
@@ -68,22 +65,16 @@ public class ChannelListFragment extends AppCompatActivity implements AdapterVie
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent myIntent = new Intent(getApplicationContext(),ChannelActivity.class);
-        myIntent.putExtra("ChannelId", id);
-        startActivity(myIntent);
-    }
-
-    @Override
-    public void OnSuccess(int mRequestCode, String result) {
+    public void OnSuccess(int requestCode, String result) {
         Gson gson = new Gson();
 
         ChannelResponse channelRep = gson.fromJson(result, ChannelResponse.class);
         List<Channel> channels = channelRep.getResponse();
 
-        lvMyListView.setAdapter(new ChannelAdaptater(channels, this));
+        lvMyListView.setAdapter(new ChannelAdaptater(channels, getActivity()));
     }
 
     @Override
-    public void OnError(int mRequestCode) {}
+    public void OnError(int requestCode) { }
+
 }

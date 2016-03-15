@@ -9,9 +9,11 @@
     tools:showIn="@layout/activity_channel_list"
     android:baselineAligned="true">
 
-    <ListView
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/channelList" />
+        android:name="laurie.giry.channelmessaging.Fragment.ChannelListFragment"
+        android:id="@+id/fragmentA_channelList"
+        tools:layout="@layout/fragment_channel_list" />
 
 </LinearLayout>

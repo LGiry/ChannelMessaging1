@@ -8,11 +8,11 @@ import java.util.List;
  */
 public class MessageResponse {
 
-    List<Message> messages;
+    private List<Message> messages;
 
     public MessageResponse(){}
 
-    public List<Message> getResponse() {
+public List<Message> getResponse() {
         return messages;
     }
 

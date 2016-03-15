@@ -15,6 +15,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:layout_weight="1"
+            android:src="@drawable/ic_logo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="Connectez-vous pour accéder à la messagerie
+instantanée"
+            android:id="@+id/txtTitle" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/green"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -22,14 +50,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:text="Identifiant :"
-            android:id="@+id/txtId" />
+            android:id="@+id/txtId"
+            android:paddingTop="10dp"/>
 
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="lgiry"
-            android:id="@+id/editTextId"/>
+            android:id="@+id/editTextId"
+            android:paddingTop="10dp"/>
 
     </LinearLayout>
 
@@ -42,7 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:text="Mot de passe :"
-            android:id="@+id/txtMDP" />
+            android:id="@+id/txtMDP"
+            android:paddingTop="10dp"/>
 
         <EditText
             android:layout_width="0dp"
@@ -50,15 +81,17 @@
             android:layout_weight="6"
             android:text="lauriegiry"
             android:id="@+id/editTextMDP"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:paddingTop="10dp"/>
 
     </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:text="Valider"
-        android:id="@+id/btnValider" />
+        android:id="@+id/btnValider"
+        android:background="@drawable/button"/>
 
 </LinearLayout>
