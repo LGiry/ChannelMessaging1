@@ -25,6 +25,11 @@
         android:id="@+id/rlSendMsg"
         android:padding="7dp">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"/>
+
         <LinearLayout
             android:focusable="true" android:focusableInTouchMode="true"
             android:layout_width="0px" android:layout_height="0px"/>
@@ -45,7 +50,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:id="@+id/btnSend"
-            android:background="@drawable/ic_send_black_24dp"/>
+            android:background="@drawable/ic_send_black_48dp"
+            android:textAlignment="center"/>
 
     </RelativeLayout>
 

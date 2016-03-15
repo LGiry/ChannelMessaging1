@@ -31,6 +31,8 @@ public class ChannelListActivity extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.activity_channel_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override

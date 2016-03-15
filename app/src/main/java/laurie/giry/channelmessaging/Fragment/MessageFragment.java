@@ -89,7 +89,14 @@ public class MessageFragment extends Fragment implements OnWsRequestListener, Vi
             MessageResponse messageRsp = gson.fromJson(result, MessageResponse.class);
             List<Message> messages = messageRsp.getResponse();
             if(messages != null){
+                // save index and top position
+                int index = lstMessage.getFirstVisiblePosition();
+                View v = lstMessage.getChildAt(0);
+                int top = (v == null) ? 0 : (v.getTop() - lstMessage.getPaddingTop());
+                // SET ADAPTER
                 lstMessage.setAdapter(new MessageAdapter(messages, getActivity()));
+                // restore index and position
+                lstMessage.setSelectionFromTop(index, top);
             }
         }
     }
